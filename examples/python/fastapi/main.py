@@ -30,14 +30,9 @@ trace.set_tracer_provider(provider)
 
 # Adds span processor with the OTLP exporter to the tracer provider
 provider.add_span_processor(
-    SimpleSpanProcessor(OTLPSpanExporter(endpoint="https://collector-us1.infrastack.ai/v1/traces", headers=(("infrastack-api-key", "sk-1d5737ca07c8cbdab10aeb80900e8cbedc99040051e4266d"),)))
+    SimpleSpanProcessor(OTLPSpanExporter(endpoint="https://collector-us1.infrastack.ai/v1/traces", headers=(("infrastack-api-key", "{YOUR_API_KEY}"),)))
 )
 tracer = trace.get_tracer(__name__)
-
-#Starts and sets an attribute to a span
-with tracer.start_as_current_span("HelloWorldSpan") as span:
-    span.set_attribute("foo", "bar")
-    print("Hello world")
 
 app = FastAPI()
 
