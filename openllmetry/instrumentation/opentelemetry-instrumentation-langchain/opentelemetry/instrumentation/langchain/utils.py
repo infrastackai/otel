@@ -20,7 +20,7 @@ def _with_tracer_wrapper(func):
 
 def should_send_prompts():
     return (
-        os.getenv("TRACELOOP_TRACE_CONTENT") or "true"
+        os.getenv("INFRASTACK_TRACE_CONTENT") or "true"
     ).lower() == "true" or context_api.get_value("override_enable_content_tracing")
 
 
@@ -56,7 +56,7 @@ def process_request(span, args, kwargs):
             to_serialize.pop("callbacks")
 
         span.set_attribute(
-            SpanAttributes.TRACELOOP_ENTITY_INPUT,
+            SpanAttributes.INFRASTACK_ENTITY_INPUT,
             json.dumps(
                 {
                     "args": [],
@@ -70,7 +70,7 @@ def process_request(span, args, kwargs):
 def process_response(span, response):
     if should_send_prompts():
         span.set_attribute(
-            SpanAttributes.TRACELOOP_ENTITY_OUTPUT,
+            SpanAttributes.INFRASTACK_ENTITY_OUTPUT,
             _convert_to_string(response),
         )
 

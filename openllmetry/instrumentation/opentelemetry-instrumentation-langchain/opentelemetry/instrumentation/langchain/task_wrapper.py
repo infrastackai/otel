@@ -1,7 +1,7 @@
 from opentelemetry import context as context_api
 from opentelemetry.instrumentation.utils import _SUPPRESS_INSTRUMENTATION_KEY
 
-from opentelemetry.semconv.ai import SpanAttributes, TraceloopSpanKindValues
+from opentelemetry.semconv.ai import SpanAttributes, InfrastackSpanKindValues
 
 from opentelemetry.instrumentation.langchain.utils import (
     _with_tracer_wrapper,
@@ -24,10 +24,10 @@ def task_wrapper(tracer, to_wrap, wrapped, instance, args, kwargs):
 
     with tracer.start_as_current_span(name) as span:
         span.set_attribute(
-            SpanAttributes.TRACELOOP_SPAN_KIND,
+            SpanAttributes.INFRASTACK_SPAN_KIND,
             kind,
         )
-        span.set_attribute(SpanAttributes.TRACELOOP_ENTITY_NAME, name)
+        span.set_attribute(SpanAttributes.INFRASTACK_ENTITY_NAME, name)
 
         process_request(span, args, kwargs)
         return_value = wrapped(*args, **kwargs)
@@ -50,10 +50,10 @@ async def atask_wrapper(tracer, to_wrap, wrapped, instance, args, kwargs):
 
     with tracer.start_as_current_span(name) as span:
         span.set_attribute(
-            SpanAttributes.TRACELOOP_SPAN_KIND,
+            SpanAttributes.INFRASTACK_SPAN_KIND,
             kind,
         )
-        span.set_attribute(SpanAttributes.TRACELOOP_ENTITY_NAME, name)
+        span.set_attribute(SpanAttributes.INFRASTACK_ENTITY_NAME, name)
 
         process_request(span, args, kwargs)
         return_value = await wrapped(*args, **kwargs)
@@ -67,6 +67,6 @@ def _handle_request(instance, args, to_wrap):
     run_name = config.get("run_name") or instance.get_name()
     name = f"{run_name}.langchain.task" if run_name else to_wrap.get("span_name")
 
-    kind = to_wrap.get("kind") or TraceloopSpanKindValues.TASK.value
+    kind = to_wrap.get("kind") or InfrastackSpanKindValues.TASK.value
 
     return name, kind

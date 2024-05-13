@@ -28,7 +28,7 @@ from opentelemetry.instrumentation.langchain.custom_chat_wrapper import (
 )
 from opentelemetry.instrumentation.langchain.version import __version__
 
-from opentelemetry.semconv.ai import TraceloopSpanKindValues
+from opentelemetry.semconv.ai import InfrastackSpanKindValues
 
 logger = logging.getLogger(__name__)
 
@@ -66,7 +66,7 @@ WRAPPED_METHODS = [
         "object": "AgentExecutor",
         "method": "_call",
         "span_name": "langchain.agent",
-        "kind": TraceloopSpanKindValues.AGENT.value,
+        "kind": InfrastackSpanKindValues.AGENT.value,
         "wrapper": workflow_wrapper,
     },
     {
@@ -74,7 +74,7 @@ WRAPPED_METHODS = [
         "object": "Tool",
         "method": "_run",
         "span_name": "langchain.tool",
-        "kind": TraceloopSpanKindValues.TOOL.value,
+        "kind": InfrastackSpanKindValues.TOOL.value,
         "wrapper": task_wrapper,
     },
     {

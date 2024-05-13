@@ -29,5 +29,5 @@ However, you may want to disable this logging for privacy reasons, as they may c
 To disable logging, set the `TRACELOOP_TRACE_CONTENT` environment variable to `false`.
 
 ```bash
-TRACELOOP_TRACE_CONTENT=false
+INFRASTACK_TRACE_CONTENT=false
 ```
