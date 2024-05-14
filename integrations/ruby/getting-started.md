@@ -23,20 +23,48 @@ bundle install
 
 ### Step 2: Telemetry Configuration
 
-Configure your application to collect and send telemetry data. Add the following settings to your `config.ru` or `application.rb` file:
+Configure your application to collect and send telemetry data. Add the following settings to your `config.ru`, `application.rb`, or optionally, create a new file `config/initializers/opentelemetry.rb`:
 
 ```ruby
 require 'opentelemetry/sdk'
-require 'opentelemetry/instrumentation/rack'
+require 'opentelemetry/instrumentation/all'
 require 'opentelemetry/exporter/otlp'
 
 OpenTelemetry::SDK.configure do |c|
   c.service_name = 'my-first-app'
-  c.use 'OpenTelemetry::Instrumentation::Rack'
+  c.use_all
+end
+```
+
+The call `c.use_all()` enables all instrumentations in the `instrumentation/all` package. If you have more advanced configuration needs, you can configure specific instrumentations as required.
+
+**Configuration via Environment Variables**
+
+Environment variables provide necessary configurations for the agent. For example:
+
+**Linux & MacOS:**
+```bash
+export OTEL_EXPORTER_OTLP_ENDPOINT=https://collector-us1-http.infrastack.ai
+export OTEL_EXPORTER_OTLP_HEADERS="infrastack-api-key=<API-KEY>"
+```
+
+**Windows:**
+```cmd
+set OTEL_EXPORTER_OTLP_ENDPOINT=https://collector-us1-http.infrastack.ai
+set OTEL_EXPORTER_OTLP_HEADERS="infrastack-api-key=<API-KEY>"
+```
+
+For example, you can customize the span processor and exporter settings as shown below:
+
+```ruby
+OpenTelemetry::SDK.configure do |c|
+  c.service_name = 'my-first-app'
+  c.use_all
+
   c.add_span_processor(
     OpenTelemetry::SDK::Trace::Export::SimpleSpanProcessor.new(
       OpenTelemetry::Exporter::OTLP::Exporter.new(
-        endpoint: 'https://collector-us1.infrastack.ai',
+        endpoint: 'https://collector-us1-http.infrastack.ai',
         headers: { 'infrastack-api-key' => '<API-KEY>' }
       )
     )
@@ -44,9 +72,7 @@ OpenTelemetry::SDK.configure do |c|
 end
 ```
 
-**`<API-KEY>`**: Replace this with your API key. This ensures that the transmitted data is associated with your account, securing and authenticating the data transmission.
-
-**`service_name`**: Set this to the name of your application or service. It uniquely identifies the source of telemetry data, aiding in easier monitoring and analysis across multiple services.
+While it is possible to configure these settings directly in the code, managing them through environment variables is often more effective and secure.
 
 ### Step 3: Running the Application
 
@@ -94,43 +120,16 @@ or
 OTEL_SERVICE_NAME=my-first-app rails server
 ```
 
-#### Configuration via Environment Variables
-
-Environment variables provide necessary configurations for the agent. For example:
-
-**Linux & MacOS:**
-```bash
-export OTEL_EXPORTER_OTLP_ENDPOINT=https://collector-us1.infrastack.ai
-export OTEL_EXPORTER_OTLP_HEADERS="infrastack-api-key=<API-KEY>"
-```
-
-**Windows:**
-```cmd
-set OTEL_EXPORTER_OTLP_ENDPOINT=https://collector-us1.infrastack.ai
-set OTEL_EXPORTER_OTLP_HEADERS="infrastack-api-key=<API-KEY>"
-```
-
 #### Configuration with Docker
 
 If you are using Docker, you can add the necessary environment variables to your Dockerfile or Docker Compose file:
 
 ```dockerfile
-ENV OTEL_EXPORTER_OTLP_ENDPOINT=https://collector-us1.infrastack.ai
+ENV OTEL_EXPORTER_OTLP_ENDPOINT=https://collector-us1-http.infrastack.ai
 ENV OTEL_EXPORTER_OTLP_HEADERS="infrastack-api-key=<API-KEY>"
-```
-
-### Running Your Application
-
-After correctly configuring the agent and setting the environment variables or properties, you are ready to run your application. For example:
-
-```shell
-rackup
-```
-
-or
-
-```shell
-rails server
+ENV OTEL_SERVICE_NAME=my-first-app
+ENV OTEL_TRACES_SAMPLER=always_on
+ENV OTEL_RESOURCE_ATTRIBUTES="service.version=1.0,deployment.environment=production"
 ```
 
 To monitor and analyze the telemetry data collected, visit the [InfraStack Dashboard](https://app.infrastack.ai/).
