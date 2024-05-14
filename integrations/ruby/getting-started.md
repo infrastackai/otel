@@ -11,7 +11,7 @@ To integrate OpenTelemetry into your Ruby application, you need to add the follo
 
 ```ruby
 gem 'opentelemetry-sdk'
-gem 'opentelemetry-instrumentation-rack'
+gem 'opentelemetry-instrumentation-all'
 gem 'opentelemetry-exporter-otlp'
 ```
 
