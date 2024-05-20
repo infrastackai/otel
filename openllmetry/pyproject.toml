@@ -1,25 +1,35 @@
 [project]
-name = "infrastack-sdk"
-version = "0.0.1"
+name = "infrastackai-opentelemetry"
+version = "0.0.2"
 authors = [
-  { name="Example Author", email="hello@infrastack.ai" },
+  { name="Frank Kuehnel", email="hello@infrastack.ai" },
 ]
-description = "Instrumentation for LLM frameworks for Infrastack"
+maintainers = [
+  { name="Frank Kuehnel", email="hello@infrastack.ai" },
+  { name="Aykut Gedik", email="hello@infrastack.ai" },
+]
+description = "Infrastack instrumentation for LLM frameworks"
 readme = "README.md"
+license = {text = "Apache-2.0"}
 requires-python = ">=3.8"
 classifiers = [
     "Programming Language :: Python :: 3",
-    "License :: OSI Approved :: MIT License",
+    "License :: OSI Approved :: Apache Software License",
     "Operating System :: OS Independent",
 ]
+dependencies = [
+    "inflection>=0.4.0",
+    "opentelemetry-api>=1.24.0",
+]
+
 
 [project.urls]
-Homepage = "https://github.com/pypa/sampleproject"
-Issues = "https://github.com/pypa/sampleproject/issues"
+Homepage = "https://github.com/infrastackai/otel"
+Issues = "https://github.com/infrastackai/otel/issues"
 
 [metadata]
-name = "infrastack-sdk"
-version = "0.0.1"
+name = "infrastackai-opentelemetry"
+version = "0.0.2"
 
 [build-system]
 requires = ["setuptools>=61.0"]
