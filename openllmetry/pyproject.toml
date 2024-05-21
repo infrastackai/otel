@@ -1,11 +1,11 @@
 [project]
-name = "infrastackai-opentelemetry"
+name = "infrastack-otel"
 version = "0.0.2"
 authors = [
   { name="Frank Kuehnel", email="hello@infrastack.ai" },
 ]
 maintainers = [
-  { name="Frank Kuehnel", email="hello@infrastack.ai" },
+  { name="Frank Kuehnel", email="frank@infrastack.ai" },
   { name="Aykut Gedik", email="hello@infrastack.ai" },
 ]
 description = "Infrastack instrumentation for LLM frameworks"
@@ -19,7 +19,7 @@ classifiers = [
 ]
 dependencies = [
     "inflection>=0.4.0",
-    "opentelemetry-api>=1.24.0",
+    "opentelemetry-instrumentation>=0.45b0",
     "wrapt>=1.16.0",
 ]
 
@@ -29,7 +29,7 @@ Homepage = "https://github.com/infrastackai/otel"
 Issues = "https://github.com/infrastackai/otel/issues"
 
 [metadata]
-name = "infrastackai-opentelemetry"
+name = "infrastack-otel"
 version = "0.0.2"
 
 [build-system]
