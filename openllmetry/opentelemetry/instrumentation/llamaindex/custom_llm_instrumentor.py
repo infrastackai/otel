@@ -142,7 +142,7 @@ async def acomplete_wrapper(tracer, wrapped, instance: CustomLLM, args, kwargs):
 
 @dont_throw
 def _handle_request(span, llm_request_type, args, kwargs, instance: CustomLLM):
-    _set_span_attribute(span, SpanAttributes.LLM_SYSTEM, instance.__class__.__name__)
+    _set_span_attribute(span, SpanAttributes.LLM_PROVIDER, instance.__class__.__name__)
     _set_span_attribute(span, SpanAttributes.LLM_REQUEST_TYPE, llm_request_type.value)
     _set_span_attribute(
         span, SpanAttributes.LLM_REQUEST_MODEL, instance.metadata.model_name

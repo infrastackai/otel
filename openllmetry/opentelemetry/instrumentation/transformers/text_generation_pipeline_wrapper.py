@@ -45,7 +45,7 @@ def _set_input_attributes(span, instance, args, kwargs):
         span, SpanAttributes.LLM_REQUEST_MODEL, instance.model.config.name_or_path
     )
     _set_span_attribute(
-        span, SpanAttributes.LLM_SYSTEM, instance.model.config.model_type
+        span, SpanAttributes.LLM_PROVIDER, instance.model.config.model_type
     )
     _set_span_attribute(span, SpanAttributes.LLM_REQUEST_TYPE, "completion")
     _set_span_attribute(

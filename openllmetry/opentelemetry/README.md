@@ -1,7 +1,7 @@
 ## Installation
 
 ```bash
-pip install infrastack-sdk
+pip install infrastack-otel
 ```
 
 ## Example usage
@@ -61,13 +61,13 @@ TransformersInstrumentor().instrument()
 
 However, you may want to disable this logging for privacy reasons, as they may contain highly sensitive data from your users. You may also simply want to reduce the size of your traces.
 
-To disable logging, set the `TRACELOOP_TRACE_CONTENT` environment variable to `false`.
+To disable logging, set the `INFRASTACK_TRACE_CONTENT` environment variable to `false`.
 
 ```bash
 INFRASTACK_TRACE_CONTENT=false
 ```
 
-# OpenTelemetry Semantic Conventions extensions for gen-AI applications
+# OpenTelemetry Semantic Conventions extensions for LLM applications
 
 <a href="https://pypi.org/project/opentelemetry-semantic-conventions-ai/">
     <img src="https://badge.fury.io/py/opentelemetry-semantic-conventions-ai.svg">

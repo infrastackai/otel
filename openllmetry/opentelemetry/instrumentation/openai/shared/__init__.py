@@ -107,7 +107,7 @@ def _set_request_attributes(span, kwargs):
         return
 
     _set_api_attributes(span)
-    _set_span_attribute(span, SpanAttributes.LLM_SYSTEM, "OpenAI")
+    _set_span_attribute(span, SpanAttributes.LLM_PROVIDER, "OpenAI")
     _set_span_attribute(span, SpanAttributes.LLM_REQUEST_MODEL, kwargs.get("model"))
     _set_span_attribute(
         span, SpanAttributes.LLM_REQUEST_MAX_TOKENS, kwargs.get("max_tokens")
