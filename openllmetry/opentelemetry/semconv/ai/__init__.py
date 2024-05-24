@@ -2,19 +2,20 @@ from enum import Enum
 
 
 class SpanAttributes:
-    # Semantic Conventions for LLM requests, this needs to be removed after
-    # OpenTelemetry Semantic Conventions support Gen AI.
+    # Simplified Semantic Conventions for LLM requests, this needs to be removed after
+    # OpenTelemetry Semantic Conventions supports Gen AI.
     # Issue at https://github.com/open-telemetry/opentelemetry-python/issues/3868
     # Refer to https://github.com/open-telemetry/semantic-conventions/blob/main/docs/gen-ai/llm-spans.md
     # for more detail for LLM spans from OpenTelemetry Community.
     LLM_PROVIDER = "llm.provider"
     LLM_REQUEST_MODEL = "llm.model"
-    LLM_REQUEST_MAX_TOKENS = "llm.request.max_tokens"
-    LLM_REQUEST_TEMPERATURE = "llm.request.temperature"
+    LLM_REQUEST_MAX_TOKENS = "llm.request_max_tokens"
+    LLM_REQUEST_TEMPERATURE = "llm.temperature"
     LLM_REQUEST_TOP_P = "llm.top_p"
     LLM_PROMPTS = "llm.prompt"
     LLM_COMPLETIONS = "llm.completion"
-    LLM_RESPONSE_MODEL = "llm.response.model"
+    # To be discussed wheather we need a request and respons model
+    LLM_RESPONSE_MODEL = "llm.response_model"
     LLM_USAGE_COMPLETION_TOKENS = "llm.completion_tokens"
     LLM_USAGE_PROMPT_TOKENS = "llm.prompt_tokens"
     # To be added
@@ -22,7 +23,7 @@ class SpanAttributes:
     # LLM_RESPONSE_ID = "llm.response.id"
 
     # LLM
-    LLM_REQUEST_TYPE = "llm.request.type"
+    LLM_REQUEST_TYPE = "llm.request_type"
     LLM_USAGE_TOTAL_TOKENS = "llm.total_tokens"
     LLM_USER = "llm.user"
     LLM_HEADERS = "llm.headers"
@@ -31,7 +32,7 @@ class SpanAttributes:
     LLM_FREQUENCY_PENALTY = "llm.frequency_penalty"
     LLM_PRESENCE_PENALTY = "llm.presence_penalty"
     LLM_CHAT_STOP_SEQUENCES = "llm.chat.stop_sequences"
-    LLM_REQUEST_FUNCTIONS = "llm.request.functions"
+    LLM_REQUEST_FUNCTIONS = "llm.functions"
 
     # Vector DB
     VECTOR_DB_VENDOR = "db.system"
