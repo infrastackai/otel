@@ -11,3 +11,7 @@ venv.bak/
 __pypackages__/
 
 .DS_Store
+
+/node_modules
+/examples/node_modules
+/examples/*/node_modules

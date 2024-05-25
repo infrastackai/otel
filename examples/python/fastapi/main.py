@@ -1,3 +1,4 @@
+import os
 import logging
 
 from fastapi import FastAPI
@@ -28,9 +29,12 @@ resource = Resource.create({"service.name": "python.console.traces"})
 provider = TracerProvider(resource=resource)
 trace.set_tracer_provider(provider)
 
+name = os.getenv("OTEL_EXPORTER_OTLP_HEADERS", "")
+
+
 # Adds span processor with the OTLP exporter to the tracer provider
 provider.add_span_processor(
-    SimpleSpanProcessor(OTLPSpanExporter(endpoint="https://collector-us1.infrastack.ai/v1/traces", headers=(("infrastack-api-key", "{YOUR_API_KEY}"),)))
+    SimpleSpanProcessor(OTLPSpanExporter(endpoint="https://collector-us1.infrastack.ai/v1/traces", headers=(("infrastack-api-key", "sk-15766cbeba725f7acf7e15b3d96ae529b75ed976168a4ac4"),)))
 )
 tracer = trace.get_tracer(__name__)
 
